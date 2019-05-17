@@ -2,6 +2,8 @@
 node_modules
 /dist
 .cache
+*.http
+test.*
 
 # local env files
 .env.local
