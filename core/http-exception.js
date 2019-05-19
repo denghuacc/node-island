@@ -1,6 +1,6 @@
 /*
  * @Author: Hale
- * @Description: 异常处理类
+ * @Description: 异常处理相关
  * @Date: 2019-05-17
  * @LastEditTime: 2019-05-19
  */
@@ -32,7 +32,7 @@ class NotFound extends HttpException {
 }
 
 class AuthFailed extends HttpException {
-  constructor(msg = '授权失败', errorCode = 10000) {
+  constructor(msg = '授权失败', errorCode = 100004) {
     super()
     this.msg = msg
     this.errorCode = errorCode
@@ -40,9 +40,19 @@ class AuthFailed extends HttpException {
   }
 }
 
+class Forbidden extends HttpException {
+  constructor(msg = '禁止访问', errorCode = 10006) {
+    super()
+    this.msg = msg
+    this.errorCode = errorCode
+    this.code = 403
+  }
+}
+
 module.exports = {
   HttpException,
   ParameterException,
   NotFound,
-  AuthFailed
+  AuthFailed,
+  Forbidden
 }

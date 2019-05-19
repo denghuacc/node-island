@@ -12,5 +12,15 @@ module.exports = {
     port: 3306,
     user: 'root',
     password: 'password'
+  },
+  security: {
+    secretKey: '@2Wd%e9Cd3s.P,&1!',
+    expiresIn: 60 * 60 * 24 * 7
+  },
+  wx: {
+    appId: 'wx3a0ca6652cc489dd',
+    appSecret: 'ff38d1e0ec2110104e106deb336296f8',
+    loginUrl:
+      'https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code'
   }
 }

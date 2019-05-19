@@ -2,7 +2,7 @@
  * @Author: Hale
  * @Description: 工具函数
  * @Date: 2019-05-18
- * @LastEditTime: 2019-05-18
+ * @LastEditTime: 2019-05-19
  */
 const jwt = require('jsonwebtoken')
 /***
@@ -42,7 +42,7 @@ const generateToken = function(uid, scope) {
   const token = jwt.sign(
     {
       uid,
-      scope
+      scope // 权限
     },
     secretKey,
     {
@@ -56,15 +56,3 @@ module.exports = {
   findMembers,
   generateToken
 }
-
-// const generateToken = function (uid, scope) {
-//     const secretKey = global.config.security.secretKey
-//     const expiresIn = global.config.security.expiresIn
-//     const token = jwt.sign({
-//         uid,
-//         scope
-//     }, secretKey, {
-//         expiresIn: expiresIn
-//     })
-//     return token
-// }

@@ -24,7 +24,7 @@ router.post('/register', async (ctx, next) => {
 
   await User.create(user)
 
-  successResponse(ctx)
+  successResponse({ ctx })
 })
 
 module.exports = router

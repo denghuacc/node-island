@@ -6,11 +6,18 @@
  */
 
 // 验证成功回复
-function successResponse(ctx, msg = 'ok', errorCode = 0) {
-  ctx.status = 201
+function successResponse({
+  ctx,
+  status = 201,
+  data = {},
+  msg = 'ok',
+  errorCode = 0
+}) {
+  ctx.status = status
   ctx.body = {
-    msg,
     error_code: errorCode,
+    msg,
+    data,
     request: `${ctx.method} ${ctx.path}`
   }
 }
