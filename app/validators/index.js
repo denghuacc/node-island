@@ -2,9 +2,11 @@
  * @Author: Hale
  * @Description: 自定义校验器
  * @Date: 2019-05-18
- * @LastEditTime: 2019-05-18
+ * @LastEditTime: 2019-05-19
  */
-const { LinValidator, Rule } = require('../../core/lin-validator')
+const { LinValidator, Rule } = require('../../core/lin-validator-v2')
+const { User } = require('../models/user')
+const { loginType } = require('../lib/enum')
 
 class PositiveIntegerValidator extends LinValidator {
   constructor() {
@@ -41,6 +43,40 @@ class RegisterValidator extends LinValidator {
       throw new Error('两次输入的密码必须相同')
     }
   }
+
+  async validateEmail(values) {
+    const email = values.body.email
+    const user = await User.findOne({
+      where: {
+        email
+      }
+    })
+    if (user) {
+      throw new Error('email已存在')
+    }
+  }
 }
 
-module.exports = { PositiveIntegerValidator, RegisterValidator }
+class TokenValidator extends LinValidator {
+  constructor() {
+    super()
+    this.account = [new Rule('isLength', '不符合账号规范', { min: 4, max: 32 })]
+    this.secret = [
+      new Rule('isOptional'), // 账号必需，密码可以不用
+      new Rule('isLength', '至少6个字符', { min: 6, max: 128 })
+    ]
+  }
+
+  validateLoginType(values) {
+    const type = values.body.type
+
+    if (!type) {
+      throw new Error('type是必须参数')
+    }
+    if (!loginType.isThisType(type)) {
+      throw new Error('type参数不合法')
+    }
+  }
+}
+
+module.exports = { PositiveIntegerValidator, RegisterValidator, TokenValidator }

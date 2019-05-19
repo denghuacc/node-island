@@ -2,7 +2,7 @@
  * @Author: Hale
  * @Description: 异常处理类
  * @Date: 2019-05-17
- * @LastEditTime: 2019-05-17
+ * @LastEditTime: 2019-05-19
  */
 class HttpException extends Error {
   constructor(msg = '服务器异常', errorCode = 10000, code = 400) {
@@ -22,4 +22,27 @@ class ParameterException extends HttpException {
   }
 }
 
-module.exports = { HttpException, ParameterException }
+class NotFound extends HttpException {
+  constructor(msg = '资源未找到', errorCode = 10000) {
+    super()
+    this.msg = msg
+    this.errorCode = errorCode
+    this.code = 404
+  }
+}
+
+class AuthFailed extends HttpException {
+  constructor(msg = '授权失败', errorCode = 10000) {
+    super()
+    this.msg = msg
+    this.errorCode = errorCode
+    this.code = 401
+  }
+}
+
+module.exports = {
+  HttpException,
+  ParameterException,
+  NotFound,
+  AuthFailed
+}

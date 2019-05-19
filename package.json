@@ -10,10 +10,12 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "bcrypt": "^3.0.6",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",
+    "lodash": "^4.17.11",
     "mysql2": "^1.6.5",
     "require-directory": "^2.1.1",
     "sequelize": "^5.8.6",
