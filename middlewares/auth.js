@@ -2,7 +2,7 @@
  * @Author: Hale
  * @Description: Auth 身份验证相关
  * @Date: 2019-05-19
- * @LastEditTime: 2019-05-19
+ * @LastEditTime: 2019-05-20
  */
 const jwt = require('jsonwebtoken')
 const basicAuth = require('basic-auth')
@@ -48,6 +48,15 @@ class Auth {
 
       ctx.auth = { uid, scope }
       await next()
+    }
+  }
+
+  static verifyToken(token) {
+    try {
+      jwt.verify(token, global.config.security.secretKey)
+      return true
+    } catch (error) {
+      return false
     }
   }
 }

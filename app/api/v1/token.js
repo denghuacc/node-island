@@ -2,10 +2,10 @@
  * @Author: Hale
  * @Description: v1 token API
  * @Date: 2019-05-17
- * @LastEditTime: 2019-05-19
+ * @LastEditTime: 2019-05-20
  */
 const Router = require('koa-router')
-const { TokenValidator } = require('../../validators')
+const { TokenValidator, NotEmptyValidator } = require('../../validators')
 const { loginType } = require('../../lib/enum')
 const { User } = require('../../models/user')
 const { ParameterException } = require('../../../core/http-exception')
@@ -40,6 +40,13 @@ router.post('/', async (ctx, next) => {
   }
 
   successResponse({ ctx, status: 200, data: { token } })
+})
+
+router.post('/verify', async ctx => {
+  const v = await new NotEmptyValidator().validate(ctx)
+  const token = v.get('body.token')
+  const result = Auth.verifyToken(token)
+  successResponse({ ctx, data: { result } })
 })
 
 async function emailLogin(account, secret) {

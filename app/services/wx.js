@@ -2,7 +2,7 @@
  * @Author: Hale
  * @Description: 微信相关
  * @Date: 2019-05-19
- * @LastEditTime: 2019-05-19
+ * @LastEditTime: 2019-05-20
  */
 const util = require('util')
 const axios = require('axios')
@@ -22,10 +22,10 @@ class WXManger {
       throw new AuthFailed('openid获取失败')
     }
 
-    const { errcode, openid } = result.data
+    const { errcode, openid, errmsg } = result.data
 
-    if (errcode !== 0) {
-      throw new AuthFailed(`openid获取失败, errcode: ${errcode}`)
+    if (errcode) {
+      throw new AuthFailed(`openid获取失败, errmsg: ${errmsg}`)
     }
 
     let user = await User.getUserByOpenid(openid)

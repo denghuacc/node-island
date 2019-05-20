@@ -2,7 +2,7 @@
  * @Author: Hale
  * @Description: 自定义校验器
  * @Date: 2019-05-18
- * @LastEditTime: 2019-05-19
+ * @LastEditTime: 2019-05-20
  */
 const { LinValidator, Rule } = require('../../core/lin-validator-v2')
 const { User } = require('../models/user')
@@ -79,4 +79,16 @@ class TokenValidator extends LinValidator {
   }
 }
 
-module.exports = { PositiveIntegerValidator, RegisterValidator, TokenValidator }
+class NotEmptyValidator extends LinValidator {
+  constructor() {
+    super()
+    this.token = [new Rule('isLength', '不允许为空', { min: 1 })]
+  }
+}
+
+module.exports = {
+  PositiveIntegerValidator,
+  RegisterValidator,
+  TokenValidator,
+  NotEmptyValidator
+}
