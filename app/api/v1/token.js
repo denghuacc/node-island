@@ -2,7 +2,7 @@
  * @Author: Hale
  * @Description: v1 token API
  * @Date: 2019-05-17
- * @LastEditTime: 2019-05-20
+ * @LastEditTime: 2019-05-23
  */
 const Router = require('koa-router')
 const { TokenValidator, NotEmptyValidator } = require('../../validators')
@@ -46,7 +46,7 @@ router.post('/verify', async ctx => {
   const v = await new NotEmptyValidator().validate(ctx)
   const token = v.get('body.token')
   const result = Auth.verifyToken(token)
-  successResponse({ ctx, data: { result } })
+  successResponse({ ctx, data: { is_valid: result } })
 })
 
 async function emailLogin(account, secret) {

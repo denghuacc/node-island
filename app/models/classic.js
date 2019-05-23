@@ -2,7 +2,7 @@
  * @Author: Hale
  * @Description: classic 模型
  * @Date: 2019-05-20
- * @LastEditTime: 2019-05-20
+ * @LastEditTime: 2019-05-23
  */
 const { sequelize } = require('../../core/db')
 const { Sequelize, Model } = require('sequelize')
@@ -18,16 +18,16 @@ const classicFields = {
 
 class Movie extends Model {}
 
-Model.init(classicFields, { sequelize, tableName: 'movie' })
+Movie.init(classicFields, { sequelize, tableName: 'movie' })
 
 class Sentence extends Model {}
 
-Model.init(classicFields, { sequelize, tableName: 'sentence' })
+Sentence.init(classicFields, { sequelize, tableName: 'sentence' })
 
 class Music extends Model {}
 
 const musicFields = Object.assign(classicFields, { url: Sequelize.STRING })
 
-Model.init(musicFields, { sequelize, tableName: 'music' })
+Music.init(musicFields, { sequelize, tableName: 'music' })
 
 module.exports = { Movie, Sentence, Music }

@@ -2,7 +2,7 @@
  * @Author: Hale
  * @Description: 异常处理相关
  * @Date: 2019-05-17
- * @LastEditTime: 2019-05-19
+ * @LastEditTime: 2019-05-23
  */
 class HttpException extends Error {
   constructor(msg = '服务器异常', errorCode = 10000, code = 400) {
@@ -49,10 +49,30 @@ class Forbidden extends HttpException {
   }
 }
 
+class LikeError extends HttpException {
+  constructor(msg = '你已经点过赞', errorCode = 60001) {
+    super()
+    this.msg = msg
+    this.errorCode = errorCode
+    this.code = 400
+  }
+}
+
+class DisLikeError extends HttpException {
+  constructor(msg = '你已取消点赞', errorCode = 60002) {
+    super()
+    this.msg = msg
+    this.errorCode = errorCode
+    this.code = 400
+  }
+}
+
 module.exports = {
   HttpException,
   ParameterException,
   NotFound,
   AuthFailed,
-  Forbidden
+  Forbidden,
+  LikeError,
+  DisLikeError
 }

@@ -2,7 +2,7 @@
  * @Author: Hale
  * @Description: 自定义校验器
  * @Date: 2019-05-18
- * @LastEditTime: 2019-05-20
+ * @LastEditTime: 2019-05-23
  */
 const { LinValidator, Rule } = require('../../core/lin-validator-v2')
 const { User } = require('../models/user')
@@ -86,9 +86,26 @@ class NotEmptyValidator extends LinValidator {
   }
 }
 
+function checkType(values) {
+  if (!values.body.type) {
+    throw new Error('type是必须参数')
+  }
+  if (!loginType.isThisType(values.body.type)) {
+    throw new Error('type参数不合法')
+  }
+}
+
+class LikeValidator extends PositiveIntegerValidator {
+  constructor() {
+    super()
+    this.validateType = checkType
+  }
+}
+
 module.exports = {
   PositiveIntegerValidator,
   RegisterValidator,
   TokenValidator,
-  NotEmptyValidator
+  NotEmptyValidator,
+  LikeValidator
 }

@@ -2,7 +2,7 @@
  * @Author: Hale
  * @Description: User 模型
  * @Date: 2019-05-18
- * @LastEditTime: 2019-05-19
+ * @LastEditTime: 2019-05-23
  */
 const bcrypt = require('bcrypt')
 const { sequelize } = require('../../core/db')
