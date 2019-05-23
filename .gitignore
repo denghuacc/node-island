@@ -4,6 +4,7 @@ node_modules
 .cache
 *.http
 test.*
+/config/index.*
 
 # local env files
 .env.local

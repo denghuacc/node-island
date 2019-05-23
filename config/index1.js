@@ -2,7 +2,7 @@
  * @Author: Hale
  * @Description: 全局配置文件
  * @Date: 2019-05-18
- * @LastEditTime: 2019-05-19
+ * @LastEditTime: 2019-05-23
  */
 module.exports = {
   env: 'development',
@@ -18,8 +18,8 @@ module.exports = {
     expiresIn: 60 * 60 * 24 * 7
   },
   wx: {
-    appId: 'wx3a0ca6652cc489dd',
-    appSecret: 'ff38d1e0ec2110104e106deb336296f8',
+    appId: '',
+    appSecret: '',
     loginUrl:
       'https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code'
   }
