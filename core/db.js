@@ -2,7 +2,7 @@
  * @Author: Hale
  * @Description: 数据库相关
  * @Date: 2019-05-18
- * @LastEditTime: 2019-05-19
+ * @LastEditTime: 2019-05-29
  */
 
 const Sequelize = require('sequelize')
@@ -20,8 +20,16 @@ const sequelize = new Sequelize(dbName, user, password, {
     createdAt: 'created_at',
     updatedAt: 'updated_at',
     deletedAt: 'deleted_at',
-    underscored: true, // 全部改成下划线形式
-    freezeTableName: true
+    underscored: true, // 全部字段修改成下划线形式
+    freezeTableName: true,
+    scopes: {
+      // 忽略字段
+      bh: {
+        attributes: {
+          exclude: ['created_at', 'updated_at', 'deleted_at']
+        }
+      }
+    }
   }
 })
 

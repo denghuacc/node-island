@@ -2,11 +2,15 @@
  * @Author: Hale
  * @Description: Favor 模型
  * @Date: 2019-05-23
- * @LastEditTime: 2019-05-23
+ * @LastEditTime: 2019-05-29
  */
 const { sequelize } = require('../../core/db')
-const { Sequelize, Model } = require('sequelize')
-const { LikeError, DisLikeError } = require('../../core/http-exception')
+const { Sequelize, Model, Op } = require('sequelize')
+const {
+  LikeError,
+  DisLikeError,
+  NotFound
+} = require('../../core/http-exception')
 const { Art } = require('./art')
 
 class Favor extends Model {
@@ -23,6 +27,7 @@ class Favor extends Model {
       throw new LikeError()
     }
 
+    // 返回事务
     return sequelize.transaction(async t => {
       await Favor.create(
         {
@@ -32,7 +37,7 @@ class Favor extends Model {
         },
         { transaction: t }
       )
-      const art = await Art.getData(art_id, type)
+      const art = await new Art(art_id, type).getData(false)
       await art.increment('fav_nums', { by: 1, transaction: t })
     })
   }
@@ -52,10 +57,10 @@ class Favor extends Model {
 
     return sequelize.transaction(async t => {
       await favor.destroy({
-        force: true,
+        force: true, // 物理删除
         transaction: t
       })
-      const art = await Art.getData(art_id, type)
+      const art = await new Art(art_id, type).getData(false)
       await art.decrement('fav_nums', { by: 1, transaction: t })
     })
   }
@@ -71,6 +76,23 @@ class Favor extends Model {
 
     return favor ? true : false
   }
+
+  static async getMyClassicFavors(uid) {
+    const arts = await Favor.findAll({
+      where: {
+        uid,
+        type: {
+          [Op.not]: 400
+        }
+      }
+    })
+
+    if (!arts) {
+      throw new NotFound()
+    }
+
+    return await Art.getList(arts)
+  }
 }
 
 Favor.init(
@@ -81,7 +103,7 @@ Favor.init(
   },
   {
     sequelize,
-    tableName: 'favour'
+    tableName: 'favor'
   }
 )
 

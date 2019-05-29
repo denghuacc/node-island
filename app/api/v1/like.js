@@ -2,7 +2,7 @@
  * @Author: Hale
  * @Description: v1 like API
  * @Date: 2019-05-23
- * @LastEditTime: 2019-05-23
+ * @LastEditTime: 2019-05-29
  */
 const Router = require('koa-router')
 const { Auth } = require('../../../middlewares/auth')
@@ -14,6 +14,7 @@ const router = new Router({
   prefix: '/v1/like'
 })
 
+// 点赞
 router.post('/', new Auth().middleware, async ctx => {
   const v = await new LikeValidator().validate(ctx, { id: 'art_id' })
   const art_id = v.get('body.art_id')
@@ -23,6 +24,7 @@ router.post('/', new Auth().middleware, async ctx => {
   successResponse({ ctx })
 })
 
+// 取消点赞
 router.post('/cancel', new Auth().middleware, async ctx => {
   const v = await new LikeValidator().validate(ctx, { id: 'art_id' })
   const art_id = v.get('body.art_id')
