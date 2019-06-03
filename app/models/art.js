@@ -2,7 +2,7 @@
  * @Author: Hale
  * @Description: Art Mixin
  * @Date: 2019-05-23
- * @LastEditTime: 2019-05-29
+ * @LastEditTime: 2019-06-03
  */
 const { Op } = require('sequelize')
 const { Movie, Sentence, Music } = require('./classic')
@@ -68,13 +68,13 @@ class Art {
 
     switch (type) {
       case 100:
-        arts = await Movie.scope(scope).findOne(finder)
+        arts = await Movie.scope(scope).findAll(finder)
         break
       case 200:
-        arts = await Music.scope(scope).findOne(finder)
+        arts = await Music.scope(scope).findAll(finder)
         break
       case 300:
-        arts = await Sentence.scope(scope).findOne(finder)
+        arts = await Sentence.scope(scope).findAll(finder)
         break
       case 400:
         break
