@@ -2,11 +2,11 @@
  * @Author: Hale
  * @Description: 自定义校验器
  * @Date: 2019-05-18
- * @LastEditTime: 2019-05-29
+ * @LastEditTime: 2019-06-04
  */
 const { LinValidator, Rule } = require('../../core/lin-validator-v2')
 const { User } = require('../models/user')
-const { loginType } = require('../lib/enum')
+const { LoginType, ArtType } = require('../lib/enum')
 
 class PositiveIntegerValidator extends LinValidator {
   constructor() {
@@ -73,7 +73,7 @@ class TokenValidator extends LinValidator {
     if (!type) {
       throw new Error('type是必须参数')
     }
-    if (!loginType.isThisType(type)) {
+    if (!LoginType.isThisType(type)) {
       throw new Error('type参数不合法')
     }
   }
@@ -86,13 +86,26 @@ class NotEmptyValidator extends LinValidator {
   }
 }
 
-function checkType(values) {
+function checkLoginType(values) {
   let type = values.body.type || values.path.type
   if (!type) {
     throw new Error('type是必须参数')
   }
+
   type = parseInt(type)
-  if (!loginType.isThisType(type)) {
+  if (!LoginType.isThisType(type)) {
+    throw new Error('type参数不合法')
+  }
+}
+
+function checkArtType(values) {
+  let type = values.body.type || values.path.type
+  if (!type) {
+    throw new Error('type是必须参数')
+  }
+
+  type = parseInt(type)
+  if (!ArtType.isThisType(type)) {
     throw new Error('type参数不合法')
   }
 }
@@ -100,7 +113,7 @@ function checkType(values) {
 class LikeValidator extends PositiveIntegerValidator {
   constructor() {
     super()
-    this.validateType = checkType
+    this.validateType = checkArtType
   }
 }
 

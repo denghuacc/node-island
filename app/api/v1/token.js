@@ -2,11 +2,11 @@
  * @Author: Hale
  * @Description: v1 token API
  * @Date: 2019-05-17
- * @LastEditTime: 2019-05-23
+ * @LastEditTime: 2019-06-04
  */
 const Router = require('koa-router')
 const { TokenValidator, NotEmptyValidator } = require('../../validators')
-const { loginType } = require('../../lib/enum')
+const { LoginType } = require('../../lib/enum')
 const { User } = require('../../models/user')
 const { ParameterException } = require('../../../core/http-exception')
 const { generateToken } = require('../../../core/util')
@@ -27,11 +27,11 @@ router.post('/', async (ctx, next) => {
 
   let token
   switch (type) {
-    case loginType.USER_EMAIL:
+    case LoginType.USER_EMAIL:
       token = await emailLogin(account, secret)
       break
 
-    case loginType.USER_MINI_PROGRAM:
+    case LoginType.USER_MINI_PROGRAM:
       token = await WXManger.codeToToken(account)
       break
 
