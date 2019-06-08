@@ -2,7 +2,7 @@
  * @Author: Hale
  * @Description: classic 模型
  * @Date: 2019-05-20
- * @LastEditTime: 2019-05-23
+ * @LastEditTime: 2019-06-08
  */
 const { sequelize } = require('../../core/db')
 const { Sequelize, Model } = require('sequelize')
@@ -11,7 +11,7 @@ const classicFields = {
   image: Sequelize.STRING,
   content: Sequelize.STRING,
   pubdate: Sequelize.DATEONLY,
-  fav_nums: Sequelize.INTEGER,
+  fav_nums: { type: Sequelize.INTEGER, defaultValue: 0 },
   title: Sequelize.STRING,
   type: Sequelize.TINYINT
 }
