@@ -2,7 +2,7 @@
  * @Author: Hale
  * @Description: Favor 模型
  * @Date: 2019-05-23
- * @LastEditTime: 2019-05-29
+ * @LastEditTime: 2019-06-08
  */
 const { sequelize } = require('../../core/db')
 const { Sequelize, Model, Op } = require('sequelize')
@@ -92,6 +92,28 @@ class Favor extends Model {
     }
 
     return await Art.getList(arts)
+  }
+
+  static async getBookFavor(uid, book_id) {
+    const favorNums = await Favor.count({
+      where: {
+        art_id: book_id,
+        type: 400
+      }
+    })
+
+    const myFavor = await Favor.findOne({
+      where: {
+        art_id: book_id,
+        uid,
+        type: 400
+      }
+    })
+
+    return {
+      fav_nums: favorNums,
+      like_status: myFavor ? 1 : 0
+    }
   }
 }
 

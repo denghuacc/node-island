@@ -2,7 +2,7 @@
  * @Author: Hale
  * @Description: 自定义校验器
  * @Date: 2019-05-18
- * @LastEditTime: 2019-06-04
+ * @LastEditTime: 2019-06-08
  */
 const { LinValidator, Rule } = require('../../core/lin-validator-v2')
 const { User } = require('../models/user')
@@ -119,11 +119,37 @@ class LikeValidator extends PositiveIntegerValidator {
 
 class ClassicValidator extends LikeValidator {}
 
+class SearchValidator extends LinValidator {
+  constructor() {
+    super()
+    this.q = [new Rule('isLength', '搜索关键词不能为空', { min: 1, max: 16 })]
+    this.start = [
+      new Rule('isInt', '不符合规范', { min: 1, max: 60000 }),
+      new Rule('isOptional', '', 0)
+    ]
+    this.count = [
+      new Rule('isInt', '不符合规范', { min: 1, max: 20 }),
+      new Rule('isOptional', '', 20)
+    ]
+  }
+}
+
+class AddShortCommentValidator extends PositiveIntegerValidator {
+  constructor() {
+    super()
+    this.content = [
+      new Rule('isLength', '必须在1到12个字符之间', { min: 1, max: 12 })
+    ]
+  }
+}
+
 module.exports = {
   PositiveIntegerValidator,
   RegisterValidator,
   TokenValidator,
   NotEmptyValidator,
   LikeValidator,
-  ClassicValidator
+  ClassicValidator,
+  SearchValidator,
+  AddShortCommentValidator
 }
