@@ -2,7 +2,7 @@
  * @Author: Hale
  * @Description: 全局配置文件
  * @Date: 2019-05-18
- * @LastEditTime: 2019-06-07
+ * @LastEditTime: 2019/06/16
  */
 module.exports = {
   env: 'development',
@@ -28,5 +28,6 @@ module.exports = {
     detailUrl: 'http://t.yushu.im/v2/book/id/%s',
     keywordUrl:
       'http://t.yushu.im/v2/book/search?q=%s&count=%s&start=%s&summary=%s'
-  }
+  },
+  host: 'http://127.0.0.1:3000/'
 }
