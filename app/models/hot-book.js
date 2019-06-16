@@ -1,8 +1,8 @@
 /*
  * @Author: Hale
  * @Description: hot-book model
- * @Date: 2019-06-01
- * @LastEditTime: 2019-06-07
+ * @Date: 2019/06/01
+ * @LastEditTime: 2019/06/16
  */
 const { sequelize } = require('../../core/db')
 const { Sequelize, Model, Op } = require('sequelize')
@@ -41,7 +41,7 @@ class HotBook extends Model {
         count = favor.get('count')
       }
     })
-    book.setDataValue('count', count)
+    book.setDataValue('fav_nums', count)
     return book
   }
 }
