@@ -2,7 +2,7 @@
  * @Author: Hale
  * @Description: v1 book router
  * @Date: 2019-05-17
- * @LastEditTime: 2019-06-08
+ * @LastEditTime: 2019/06/16
  */
 const Router = require('koa-router')
 const { HotBook } = require('../../models/hot-book')
@@ -71,7 +71,7 @@ router.get('/:book_id/short_comment', new Auth().middleware, async ctx => {
 
   const { book_id } = v.get('path')
   const comments = await BookComment.getComment(book_id)
-  successResponse({ ctx, data: comments })
+  successResponse({ ctx, data: { comments, book_id } })
 })
 
 module.exports = router
