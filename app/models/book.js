@@ -2,14 +2,14 @@
  * @Author: Hale
  * @Description: book model
  * @Date: 2019-06-07
- * @LastEditTime: 2019-06-08
+ * @LastEditTime: 2019/06/20
  */
 
 const util = require('util')
 const axios = require('axios')
 const { Sequelize, Model, Op } = require('sequelize')
 const { sequelize } = require('../../core/db')
-const { detailUrl, keywordUrl } = require('../../config').yushu
+const { detailUrl, searchUrl } = require('../../config').yushu
 const { Favor } = require('./favor')
 
 class Book extends Model {
@@ -19,9 +19,8 @@ class Book extends Model {
     return detail.data
   }
 
-  static async getSearchInfo(q, count = 20, start = 1, summary = 1) {
-    const url = util.format(keywordUrl, q, count, start, summary)
-    console.log(url)
+  static async getSearchInfo(keyword, count = 20, start = 1, summary = 1) {
+    const url = util.format(searchUrl, keyword, count, start, summary)
     const result = await axios.get(url)
     return result.data
   }

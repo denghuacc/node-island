@@ -2,7 +2,7 @@
  * @Author: Hale
  * @Description: v1 book router
  * @Date: 2019-05-17
- * @LastEditTime: 2019/06/16
+ * @LastEditTime: 2019/06/20
  */
 const Router = require('koa-router')
 const { HotBook } = require('../../models/hot-book')
@@ -35,8 +35,13 @@ router.get('/:id/detail', async ctx => {
 
 router.get('/search', async ctx => {
   const v = await new SearchValidator().validate(ctx)
-  const { q, count, start, summary } = v.get('query')
-  const result = await Book.getSearchInfo(encodeURI(q), count, start, summary)
+  const { keyword, count, start, summary } = v.get('query')
+  const result = await Book.getSearchInfo(
+    encodeURI(keyword),
+    count,
+    start,
+    summary
+  )
   successResponse({ ctx, data: result })
 })
 
@@ -72,6 +77,20 @@ router.get('/:book_id/short_comment', new Auth().middleware, async ctx => {
   const { book_id } = v.get('path')
   const comments = await BookComment.getComment(book_id)
   successResponse({ ctx, data: { comments, book_id } })
+})
+
+router.get('/hot_keyword', async ctx => {
+  const hotKeywords = [
+    'Python',
+    '哈利·波特',
+    '村上春树',
+    '东野圭吾',
+    '白夜行',
+    '韩寒',
+    '金庸',
+    '王小波'
+  ]
+  successResponse({ ctx, data: { hotKeywords } })
 })
 
 module.exports = router

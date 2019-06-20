@@ -26,7 +26,7 @@ module.exports = {
   },
   yushu: {
     detailUrl: 'http://t.yushu.im/v2/book/id/%s',
-    keywordUrl:
+    searchUrl:
       'http://t.yushu.im/v2/book/search?q=%s&count=%s&start=%s&summary=%s'
   },
   host: 'http://127.0.0.1:3000/'
