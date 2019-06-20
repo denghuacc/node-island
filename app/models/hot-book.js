@@ -2,7 +2,7 @@
  * @Author: Hale
  * @Description: hot-book model
  * @Date: 2019/06/01
- * @LastEditTime: 2019/06/16
+ * @LastEditTime: 2019/06/20
  */
 const { sequelize } = require('../../core/db')
 const { Sequelize, Model, Op } = require('sequelize')
@@ -19,9 +19,9 @@ class HotBook extends Model {
     const favors = await Favor.findAll({
       where: {
         art_id: {
-          [Op.in]: ids,
-          type: 400
-        }
+          [Op.in]: ids
+        },
+        type: 400
       },
       group: ['art_id'],
       attributes: ['art_id', [Sequelize.fn('COUNT', '*'), 'count']]
