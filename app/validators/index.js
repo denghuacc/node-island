@@ -2,7 +2,7 @@
  * @Author: Hale
  * @Description: 自定义校验器
  * @Date: 2019-05-18
- * @LastEditTime: 2019-06-08
+ * @LastEditTime: 2019/06/20
  */
 const { LinValidator, Rule } = require('../../core/lin-validator-v2')
 const { User } = require('../models/user')
@@ -122,9 +122,11 @@ class ClassicValidator extends LikeValidator {}
 class SearchValidator extends LinValidator {
   constructor() {
     super()
-    this.q = [new Rule('isLength', '搜索关键词不能为空', { min: 1, max: 16 })]
+    this.keyword = [
+      new Rule('isLength', '搜索关键词不能为空', { min: 1, max: 16 })
+    ]
     this.start = [
-      new Rule('isInt', '不符合规范', { min: 1, max: 60000 }),
+      new Rule('isInt', '不符合规范', { min: 0, max: 60000 }),
       new Rule('isOptional', '', 0)
     ]
     this.count = [
