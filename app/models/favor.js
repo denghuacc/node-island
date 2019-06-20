@@ -2,7 +2,7 @@
  * @Author: Hale
  * @Description: Favor 模型
  * @Date: 2019-05-23
- * @LastEditTime: 2019-06-08
+ * @LastEditTime: 2019/06/19
  */
 const { sequelize } = require('../../core/db')
 const { Sequelize, Model, Op } = require('sequelize')
@@ -112,7 +112,7 @@ class Favor extends Model {
 
     return {
       fav_nums: favorNums,
-      like_status: myFavor ? 1 : 0
+      like_status: myFavor ? true : false
     }
   }
 }
