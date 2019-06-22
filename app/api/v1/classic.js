@@ -2,7 +2,7 @@
  * @Author: Hale
  * @Description: v1 classic API
  * @Date: 2019-05-17
- * @LastEditTime: 2019-05-29
+ * @LastEditTime: 2019/06/22
  */
 const Router = require('koa-router')
 const {
@@ -45,7 +45,7 @@ router.get('/latest', new Auth().middleware, async ctx => {
 
 router.get('/:index/next', new Auth().middleware, async ctx => {
   const v = await new PositiveIntegerValidator().validate(ctx, { id: 'index' })
-  const index = v.get('path.index')
+  const { index } = v.get('path')
   const flow = await Flow.findOne({
     where: {
       index: index + 1
@@ -72,7 +72,7 @@ router.get('/:index/next', new Auth().middleware, async ctx => {
 
 router.get('/:index/previous', new Auth().middleware, async ctx => {
   const v = await new PositiveIntegerValidator().validate(ctx, { id: 'index' })
-  const index = v.get('path.index')
+  const { index } = v.get('path')
   const flow = await Flow.findOne({
     where: {
       index: index - 1
@@ -100,8 +100,8 @@ router.get('/:index/previous', new Auth().middleware, async ctx => {
 // 获取期刊详情
 router.get('/:type/:id/', new Auth().middleware, async ctx => {
   const v = await new ClassicValidator().validate(ctx)
-  const id = v.get('path.id')
-  const type = parseInt(v.get('path.type'))
+  let { type, id } = v.get('path')
+  type = parseInt(type)
 
   const artDetail = await new Art(id, type).getDetail(ctx.auth.uid)
 
@@ -116,8 +116,8 @@ router.get('/:type/:id/', new Auth().middleware, async ctx => {
 // 获取期刊的点赞情况
 router.get('/:type/:id/favor', new Auth().middleware, async ctx => {
   const v = await new ClassicValidator().validate(ctx)
-  const id = v.get('path.id')
-  const type = parseInt(v.get('path.type'))
+  let { type, id } = v.get('path')
+  type = parseInt(type)
 
   const artDetail = await new Art(id, type).getDetail(ctx.auth.uid)
 

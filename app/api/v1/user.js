@@ -2,7 +2,7 @@
  * @Author: Hale
  * @Description: v1 user API
  * @Date: 2019-05-18
- * @LastEditTime: 2019-05-19
+ * @LastEditTime: 2019/06/22
  */
 const Router = require('koa-router')
 const { RegisterValidator } = require('../../validators')
@@ -16,10 +16,12 @@ const router = new Router({
 router.post('/register', async (ctx, next) => {
   const v = await new RegisterValidator().validate(ctx)
 
+  const { email, password, nickname } = v.get('body')
+
   const user = {
-    email: v.get('body.email'),
-    password: v.get('body.password2'),
-    nickname: v.get('body.nickname')
+    email,
+    password,
+    nickname
   }
 
   await User.create(user)

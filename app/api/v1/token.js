@@ -2,7 +2,7 @@
  * @Author: Hale
  * @Description: v1 token API
  * @Date: 2019-05-17
- * @LastEditTime: 2019-06-04
+ * @LastEditTime: 2019/06/22
  */
 const Router = require('koa-router')
 const { TokenValidator, NotEmptyValidator } = require('../../validators')
@@ -21,9 +21,7 @@ const router = new Router({
 router.post('/', async (ctx, next) => {
   const v = await new TokenValidator().validate(ctx)
 
-  const type = v.get('body.type')
-  const account = v.get('body.account')
-  const secret = v.get('body.secret')
+  const { type, account, secret } = v.get('body')
 
   let token
   switch (type) {
@@ -44,7 +42,7 @@ router.post('/', async (ctx, next) => {
 
 router.post('/verify', async ctx => {
   const v = await new NotEmptyValidator().validate(ctx)
-  const token = v.get('body.token')
+  const { token } = v.get('body')
   const result = Auth.verifyToken(token)
   successResponse({ ctx, data: { is_valid: result } })
 })
