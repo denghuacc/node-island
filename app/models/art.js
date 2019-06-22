@@ -2,7 +2,7 @@
  * @Author: Hale
  * @Description: Art Mixin
  * @Date: 2019-05-23
- * @LastEditTime: 2019/06/20
+ * @LastEditTime: 2019/06/21
  */
 const { Op } = require('sequelize')
 const { Movie, Sentence, Music } = require('./classic')
@@ -18,7 +18,7 @@ class Art {
 
   async getDetail(uid) {
     const { Favor } = require('./favor') // 不要放在文件头部，避免循环加载
-    const art = await Art.getData(this.art_id, this.type)
+    const art = await this.getData(this.art_id, this.type)
     if (!art) {
       throw new NotFound()
     }
