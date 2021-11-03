@@ -21,7 +21,7 @@
     "mysql2": "^1.6.5",
     "require-directory": "^2.1.1",
     "sequelize": "^5.15.1",
-    "validator": "^10.11.0"
+    "validator": "^13.7.0"
   },
   "config": {
     "commitizen": {
