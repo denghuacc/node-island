@@ -12,7 +12,7 @@
     "axios": "^0.18.1",
     "basic-auth": "^2.0.1",
     "bcrypt": "^3.0.6",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",
